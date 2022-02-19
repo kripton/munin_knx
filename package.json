@@ -2,7 +2,7 @@
   "name": "munin_knx",
   "version": "0.0.1",
   "description": "Watches a KNX network for events / data and graphs them",
-  "main": "index.js",
+  "main": "plugin.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -24,6 +24,8 @@
   },
   "homepage": "https://github.com/kripton/munin_knx#readme",
   "dependencies": {
-    "knx": "^2.4.1"
+    "fast-xml-parser": "^4.0.3",
+    "knx": "^2.4.1",
+    "xml-js": "^1.6.11"
   }
 }
