@@ -1,0 +1,29 @@
+{
+  "name": "munin_knx",
+  "version": "0.0.1",
+  "description": "Watches a KNX network for events / data and graphs them",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kripton/munin_knx.git"
+  },
+  "keywords": [
+    "knx",
+    "eib",
+    "instabus",
+    "smarthome",
+    "munin"
+  ],
+  "author": "Jannis Achstetter <kripton@kripserver.net>",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/kripton/munin_knx/issues"
+  },
+  "homepage": "https://github.com/kripton/munin_knx#readme",
+  "dependencies": {
+    "knx": "^2.4.1"
+  }
+}
