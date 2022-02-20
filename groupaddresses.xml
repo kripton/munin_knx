@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<GroupAddress-Export xmlns="http://knx.org/xml/ga-export/01">
+  <GroupRange Name="New main group" RangeStart="4096" RangeEnd="6143">
+    <GroupRange Name="New middle group" RangeStart="4096" RangeEnd="4351">
+      <GroupAddress Name="EG_Wohn_Licht_01" Address="2/0/0" Description="Living room light" DPTs="DPST-1-1" />
+      <GroupAddress Name="EG_Wohn_Tcur" Address="2/0/2" Description="Living room current temperature" DPTs="DPST-9-1" />
+      <GroupAddress Name="EG_Wohn_Tset" Address="2/0/3" Description="Living room setpoint temperature" DPTs="DPST-9-1" />
+      <GroupAddress Name="EG_Wohn2_Tcur" Address="2/0/9" Description="Living room 2 current temperature" DPTs="DPST-9-1" />
+      <GroupAddress Name="EG_Wohn2_Tset" Address="2/0/10" Description="Living room 2 setpoint temperature" DPTs="DPST-9-1" />
+      <GroupAddress Name="EG_Wohn_Tmax" Address="2/0/30" DPTs="DPST-9-1" />
+      <GroupAddress Name="EG_Wohn_Tmin" Address="2/0/32" DPTs="DPST-9-1" />
+      <GroupAddress Name="EG_Wohn_Hcur" Address="2/0/40" DPTs="DPST-9-7" />
+      <GroupAddress Name="EG_Wohn_Hmax" Address="2/0/42" DPTs="DPST-9-7" />
+      <GroupAddress Name="EG_Wohn_Hmin" Address="2/0/44" DPTs="DPST-9-7" />
+    </GroupRange>
+  </GroupRange>
+</GroupAddress-Export>
