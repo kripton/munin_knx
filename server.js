@@ -12,8 +12,8 @@ const httpd_host = process.env.HTTPD_HOST || '127.0.0.1';
 const knx_port = process.env.KNX_PORT || 3671;
 const knx_host = process.env.KNX_HOST || '127.0.0.1';
 
-// Data storage mapping group addresses to last value + timestamp
-const valueMap = {};
+// Stores the internal objects for each group address
+const datapoints = {};
 
 // Read the group addresses so we can request the latest value of each one
 const groups = {};
@@ -37,9 +37,11 @@ if (!fs.existsSync('groupaddresses.xml')) {
           Object.entries(key1[1].GroupAddress).forEach(groupNode => {
             let group = groupNode[1]['_attributes'];
             groups[group.Address] = {
-              'Name': group.Name,
-              'Description': group.Description,
-              'DPTs': group.DPTs
+              'address': group.Address,
+              'name': group.Name,
+              'description': group.Description,
+              'DPTs': group.DPTs,
+              'lastData': new Date(0)
             };
           });
         }
@@ -70,7 +72,7 @@ const connection = new knx.Connection( {
         let subDPT = value.DPTs.split('-')[2];
         let DPTstr = 'DPT' + mainDPT + '.' + ('0000'+subDPT).slice(-3);
         console.log('KEY: ', key, ' VALUE: ', value, 'DPT: ', DPTstr, typeof(key));
-        value.datapoint = new knx.Datapoint({ga: value.Address, dpt: DPTstr, autoread: true}, connection);
+        datapoints[key] = new knx.Datapoint({ga: key, dpt: DPTstr, autoread: true}, connection);
       });
     },
     // get notified for all KNX events:
@@ -79,7 +81,13 @@ const connection = new knx.Connection( {
         "event: %s, src: %j, dest: %j, value: %j",
         evt, src, dest, value
       );
-      valueMap[dest] = {value: value, timestamp: new Date()};
+      if ((evt == 'GroupValue_Response') || (evt == 'GroupValue_Write')) {
+        let ga = groups[dest];
+        ga.rawValue = value;
+        ga.parsedValue = datapoints[dest].current_value;
+        ga.lastData = new Date();
+        console.log(ga);
+      }
     },
     // get notified on connection errors
     error: function(connstatus) {
@@ -91,7 +99,7 @@ const connection = new knx.Connection( {
 const requestHandler = function (req, res) {
   res.setHeader("Content-Type", "application/json");
   res.writeHead(200);
-  res.end(JSON.stringify(valueMap));
+  res.end(JSON.stringify(groups));
 };
 
 const server = http.createServer(requestHandler);
